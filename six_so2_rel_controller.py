@@ -18,10 +18,10 @@ def relpose_sub():
 
 #compute input & publish velocity for th3_num
 def callback(data, tb3_num):
+    global stateC, desC, x_star, y_star, n
+
     n = 3 #the number of agents in one clique
     d = 2 #dimension
-    
-    global stateC, desC, x_star, y_star
 
     #desired configuration of agents
     #equilateral triangle
@@ -121,7 +121,7 @@ def callback(data, tb3_num):
     twist.linear.x = u[0]
     twist.angular.z = u[1] #approximately
 
-    vel_pub = rospy.Publisher('tb3_%i/cmdvel' % tb3_number, Twist, queue_size=10)
+    vel_pub = rospy.Publisher('tb3_%i/cmd_vel' % tb3_num, Twist, queue_size=10)
     print(twist)
 
     vel_pub.publish(twist)
@@ -151,7 +151,7 @@ def rearrange_vector(data, clq_id):
     return stateC, desC
 
 
-if __name__ = '__main__':
+if __name__ == '__main__':
     try:
         rospy.init_node('six_so2_rel_controller', anonymous=True)
         relpose_sub()
