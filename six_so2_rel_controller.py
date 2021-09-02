@@ -11,7 +11,7 @@ from geometry_msgs.msg import Twist
 def relpose_sub():
 
     for i in range(6):
-        rospy.Subscriber("tb3_%i/rel_polar_vector", % i, PoseArray, callback, callback_args=i)
+        rospy.Subscriber("tb3_%i/rel_polar_vector" % i, PoseArray, callback, callback_args=i)
     
     rospy.spin()
 
@@ -77,7 +77,9 @@ def callback(data, tb3_num):
         #rotation matrix
         R_C = V.dot(D).dot(np.transpose(U))
 
+        #compute the control imput
         u = ave_stateC + R_C @ cen_desC
+
 
     #agents on sides of the triangle
     if tb3_num == 1 or tb3_num == 3 or tb3_num == 4:
@@ -112,13 +114,20 @@ def callback(data, tb3_num):
             #rotation matrix
             R_C = V.dot(D).dot(np.transpose(U))
 
+            #compute the control input
             u += ave_stateC + R_C @ cen_desC
     
     twist = Twist()
     twist.linear.x = u[0]
-    twist.angular.z = u[1]
+    twist.angular.z = u[1] #approximately
 
-    
+    vel_pub = rospy.Publisher('tb3_%i/cmdvel' % tb3_number, Twist, queue_size=10)
+    print(twist)
+
+    vel_pub.publish(twist)
+
+
+#compute reltive positions of agents againt agent <tb3_num> in one clique
 def rearrange_vector(data, clq_id):
     #define cliques 
     clique = np.zeros(shape=(4,n))
@@ -141,10 +150,6 @@ def rearrange_vector(data, clq_id):
     
     return stateC, desC
 
-
-
-
-#compute reltive position of states and destinations
 
 if __name__ = '__main__':
     try:
