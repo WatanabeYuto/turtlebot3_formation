@@ -115,7 +115,7 @@ def callback(data, tb3_num):
             R_C = V.dot(D).dot(np.transpose(U))
 
             #compute the control input
-            u += ave_stateC + R_C @ cen_desC
+            u += ave_stateC + R_C.dot(cen_desC)
     
     twist = Twist()
     twist.linear.x = u[0]
