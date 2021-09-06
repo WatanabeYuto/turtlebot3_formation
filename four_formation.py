@@ -47,7 +47,7 @@ def callback(data, tb3_num):
     #initialize the control input
     u = np.zeros(shape=(2,1))
 
-    if tb3_num == 0:
+    if tb3_num == 1:
         clq_id = 0
         stateC, desC = rearrange_vector(data,clq_id)
         #average
