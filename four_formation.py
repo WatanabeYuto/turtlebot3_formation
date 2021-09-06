@@ -24,7 +24,7 @@ def callback(data, tb3_num):
     #desired configuration of agents
     #equilateral triangle
     x_star = 0.6 * np.array([0,0.5,1,0.5])
-    y_star = 0.6 * np.array([0,-math.sqrt(3),0,math.sqrt(3)])
+    y_star = 0.6 * np.array([0,-0.5*math.sqrt(3),0,0.5*math.sqrt(3)])
 
     #states & destinations of agents in each clique
     stateC = np.zeros(shape=(d,n))
