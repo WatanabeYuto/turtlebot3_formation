@@ -6,6 +6,8 @@ from geometry_msgs.msg import PoseArray
 from geometry_msgs.msg import Twist
 
 #clique-based formation control of 4 agents with relative measurements
+#this controller is based on "K.Sakurama et.al, multi-agent coordination via distributed pattern matching(2019), IEEE TAC"
+
 def relpose_sub():
 
     for i in range(3):
