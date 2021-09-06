@@ -6,6 +6,7 @@ from geometry_msgs.msg import PoseArray
 from geometry_msgs.msg import Twist
 
 #clique-based formation control of 3 agents with relative measurements
+#one clique
 
 def relpose_sub():
 
